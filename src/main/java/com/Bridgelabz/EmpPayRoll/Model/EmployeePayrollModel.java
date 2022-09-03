@@ -1,5 +1,8 @@
 package com.Bridgelabz.EmpPayRoll.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 import com.Bridgelabz.EmpPayRoll.Dto.EmployeePayrollDto;
@@ -10,6 +13,7 @@ import lombok.Data;
 @Data
 public class EmployeePayrollModel {
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private long employeeID;
@@ -18,6 +22,7 @@ public class EmployeePayrollModel {
     
     
     public EmployeePayrollModel(EmployeePayrollDto employeePayrollDto) {
+
     	this.name=employeePayrollDto.getName();
     	this.salary=employeePayrollDto.getSalary();
     }
@@ -55,6 +60,15 @@ public class EmployeePayrollModel {
 
 	public EmployeePayrollModel() {
 		super();
+	}
+
+
+	public EmployeePayrollModel(int i, EmployeePayrollModel emp) {
+		 EmployeePayrollModel emp1 =new  EmployeePayrollModel();
+//		 emp1=emp;
+//		 this.employeeID=emp.employeeID;
+		 this.name=emp.getName();
+		 this.salary=emp.getSalary();
 	}
 
 }
