@@ -1,6 +1,8 @@
 package com.Bridgelabz.EmpPayRoll.Service;
 
 
+import java.util.List;
+
 import com.Bridgelabz.EmpPayRoll.Model.EmployeePayrollModel;
 
 public interface IEmployeePayrollService {
@@ -14,5 +16,9 @@ public interface IEmployeePayrollService {
 	EmployeePayrollModel update(EmployeePayrollModel emp, long id);
 
 	EmployeePayrollModel delete(long id);
+
+	void deleteFromList(long id);
+
+	List<EmployeePayrollModel> getAll();
 
 }
