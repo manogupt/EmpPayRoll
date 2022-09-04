@@ -8,11 +8,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class Response {
 	
-    public Response(String string, int i, String token2) {
+    public Response() {
 		// TODO Auto-generated constructor stub
-    	this.message=string;
-    	this.errorCode=i;
-    	this.token =token2;
 	}
 	private String message;
     private int errorCode;

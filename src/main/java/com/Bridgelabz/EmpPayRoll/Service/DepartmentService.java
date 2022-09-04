@@ -40,34 +40,22 @@ public class DepartmentService implements IDepartmentService{
 	        return department;
 	    }
 
-	 @Override
-	 public Department getDepartmentByToken(String token) {
-		 long id = tokenUtil.decodeToken(token);
-		 Optional<EmployeePayrollModel> isEmpPresent = empRepo.findById(id);
-		 if(isEmpPresent.isPresent()) {
-			 return isEmpPresent.get().getDepartment();
-		 }
-		 throw new EmployeeNotFoundException(100,"no data");
-	 }
-	 
-	 @Override
-	 public List<Department> getDepartments() {
-		 List<Department> list = departmentRepo.findAll();
-		 if(!list.isEmpty())
-			 return list;
-		 throw new EmployeeNotFoundException(100,"no data");
-		 
-	 }
+	@Override
+	public Department getDepartmentByToken(String token) {
+		long id = tokenUtil.decodeToken(token);
+		Optional<EmployeePayrollModel> isEmpPresent = empRepo.findById(id);
+		if(isEmpPresent.isPresent()) {
+			return isEmpPresent.get().getDepartment();
+		}
+		throw new EmployeeNotFoundException(100,"no data");
+	}
 
-	 public Department update(long id,DepartmentDto departmentDto) {
-		 Optional<Department> isDeptPresent = departmentRepo.findById(id);
-		 if(isDeptPresent.isPresent()) {
-			 isDeptPresent.get().setDepartmentName(departmentDto.getDepartmentName());
-			 isDeptPresent.get().setDepartmentDescription(departmentDto.getDepartmentDesc());
-			 departmentRepo.save(isDeptPresent.get());
-			 return isDeptPresent.get();
-		 }
-		 throw new EmployeeNotFoundException(100,"no data");
-	 }
-
+	@Override
+	public List<Department> getDepartments() {
+		List<Department> list = departmentRepo.findAll();
+		if(!list.isEmpty())
+			return list;
+		log.info("No Department Present");
+		return null;
+	}
 }

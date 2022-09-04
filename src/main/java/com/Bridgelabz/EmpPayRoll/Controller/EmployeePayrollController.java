@@ -2,7 +2,6 @@ package com.Bridgelabz.EmpPayRoll.Controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +18,6 @@ public class EmployeePayrollController {
 	@Autowired
 	private IEmployeePayrollService employeePayrollService;
 
-	@PostMapping("/create")
-	public EmployeePayrollModel create(@Valid @RequestBody EmployeePayrollDto emp ,@RequestParam Long department_id ) {
-		return employeePayrollService.createEmp(emp,department_id);
-	}
-	
 	@GetMapping("/getlist")
 	public List<EmployeePayrollModel> getList() {
 		return employeePayrollService.getList();
@@ -34,6 +28,12 @@ public class EmployeePayrollController {
 		return employeePayrollService.login(mail,pwd);
 	}
 	
+    @GetMapping("/sortbyfirstname")
+    public List<EmployeePayrollModel> sort(@PathVariable String content){
+    	return employeePayrollService.getByContent(content);
+    }
+
+
 	@GetMapping("/getempbytoken")
 	public EmployeePayrollModel getEmpByToken(@RequestHeader String token){
 		return employeePayrollService.getEmpByToken(token);
@@ -43,12 +43,6 @@ public class EmployeePayrollController {
 	public EmployeePayrollModel getEmployee(@PathVariable long id) {
 		return employeePayrollService.getEmployeeById(id);
 	}
-
-	@GetMapping("/sortbyfirstname")
-    public List<EmployeePayrollModel> sort(@PathVariable String content){
-    	return employeePayrollService.getByContent(content);
-    }
-
 	
 	@GetMapping("/sendmail/{id}")
 	public void sendMail(@PathVariable long id) {
@@ -56,23 +50,36 @@ public class EmployeePayrollController {
 
 	}
 	
-	@PutMapping("/setdepartment")
-	public EmployeePayrollModel updateDepartment(@PathVariable long empId,@RequestParam long deptId) {
-		return employeePayrollService.setDepartment(empId,deptId);
+	@PostMapping("/create")
+	public EmployeePayrollModel create(@RequestBody EmployeePayrollDto emp ,@RequestParam Long department_id ) {
+		return employeePayrollService.createEmp(emp,department_id);
+	}
+
+//	@PutMapping("/update/{id}")
+//	public EmployeePayrollModel update(@RequestBody EmployeePayrollModel emp, @PathVariable long id) {
+//		return employeePayrollService.update(emp, id);
+//
+//	}
+	
+	@PutMapping("/update/{empId}")
+	public EmployeePayrollModel updateDepartment(@RequestBody EmployeePayrollDto emp, @PathVariable long empId,@RequestParam long deptId) {
+		return employeePayrollService.update(emp, empId,deptId);
 
 	}
 	
-	@PutMapping("/setdepartmenttotoken")
-	public EmployeePayrollModel setDepartment(@RequestHeader String token,@RequestParam long deptId) {
-		return employeePayrollService.setDepartmentToToken(token,deptId);
+	@PutMapping("/updatedepartmentwithtoken")
+	public EmployeePayrollModel updateDepartmentWithToken(@RequestBody EmployeePayrollDto emp, @RequestHeader String token,@RequestParam long deptId) {
+		return employeePayrollService.updateDepartmentWithToken(emp, token,deptId);
 
 	}
+
 	
 	@PutMapping("/updatewithtoken")
-	public EmployeePayrollModel updateWithToken(@RequestBody EmployeePayrollDto employeePayrollDto, @RequestHeader String token) {
-		return employeePayrollService.updateWithToken(employeePayrollDto,token);
+	public EmployeePayrollModel updateWithToken(@RequestHeader String token) {
+		return employeePayrollService.updateWithToken(token);
 
-	}	
+	}
+	
 	@DeleteMapping("/delete/{id}")
 	public EmployeePayrollModel delete(@PathVariable long id) {
 		return employeePayrollService.delete(id);
