@@ -1,13 +1,15 @@
 package com.Bridgelabz.EmpPayRoll.Controller;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.Bridgelabz.EmpPayRoll.Dto.EmployeePayrollDto;
 import com.Bridgelabz.EmpPayRoll.Model.EmployeePayrollModel;
 import com.Bridgelabz.EmpPayRoll.Service.IEmployeePayrollService;
+import com.Bridgelabz.EmpPayRoll.Util.Response;
+
 @RestController
 @RequestMapping("/employeepayrollservice")
 public class EmployeePayrollController {
@@ -15,40 +17,40 @@ public class EmployeePayrollController {
 	@Autowired
 	private IEmployeePayrollService employeePayrollService;
 
-	@GetMapping("")
-	public String start() {
-
-		return employeePayrollService.start();
-	}
-
-	@GetMapping("/getEmployee/{id}")
-	public EmployeePayrollModel getEmployee(@PathVariable long id) {
-
-		return employeePayrollService.getEmployeeById(id);
-	}
-
-	@PostMapping("/create")
-	public EmployeePayrollModel create(@RequestBody EmployeePayrollModel emp) {
-		EmployeePayrollModel emp1 = new EmployeePayrollModel();
-		emp1.setName(emp.getName());
-		emp1.setSalary(emp.getSalary());
-
-		return employeePayrollService.createEmp(emp1);
-	}
-
-	@GetMapping("/getAll")
-	public List<EmployeePayrollModel> getAll(){
-		return employeePayrollService.getAll();
-	}
-	@PutMapping("/update/{id}")
-	public EmployeePayrollModel update(@RequestBody EmployeePayrollModel emp, @PathVariable long id) {
-
-		return employeePayrollService.update(emp, id);
+	@GetMapping("/getlist")
+	public List<EmployeePayrollModel> getlist() {
+		return employeePayrollService.getlist();
 	}
 	
-	@DeleteMapping("/deleteFromList/{id}")
-	public void deleteFromList(@PathVariable long id) {
-		employeePayrollService.deleteFromList(id);
+	@PostMapping("/login")
+	public Response login(@RequestParam String email,@RequestParam String pwd) {
+		return employeePayrollService.login(email,pwd);
+	}
+
+	@GetMapping("/getempbytoken")
+	public EmployeePayrollModel getempbytoken(@RequestHeader String token){
+		return employeePayrollService.getempbytoken(token);
+	}
+
+	@GetMapping("/getempwithid/{id}")
+	public EmployeePayrollModel getEmployee(@PathVariable long id) {
+		return employeePayrollService.getEmployeeById(id);
+	}
+	
+	@GetMapping("/sendmail/{id}")
+	public void sendmail(@PathVariable long id) {
+		employeePayrollService.sendmail(id);
+
+	}
+	
+	@PostMapping("/create")
+	public EmployeePayrollModel create(@RequestBody EmployeePayrollDto emp) {
+		return employeePayrollService.createEmp(emp);
+	}
+
+	@PutMapping("/update/{id}")
+	public EmployeePayrollModel update(@RequestBody EmployeePayrollModel emp, @PathVariable long id) {
+		return employeePayrollService.update(emp, id);
 
 	}
 	
@@ -57,5 +59,7 @@ public class EmployeePayrollController {
 		return employeePayrollService.delete(id);
 
 	}
+	
+
 
 }
