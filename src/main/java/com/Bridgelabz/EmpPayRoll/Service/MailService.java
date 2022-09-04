@@ -10,11 +10,27 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.PasswordAuthentication;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
+
 import javax.mail.*;
 
 @Component
+@Slf4j
 public class MailService {
-
+	@Autowired
+	//private JavaMailSender sender ;
     public static void send(String toEmail, String subject, String body)
     {
         final String fromEmail = System.getenv("Email");
@@ -51,7 +67,7 @@ public class MailService {
             msg.setSentDate(new Date());
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
             Transport.send(msg);
-            System.out.println("Email Sent Successfully........."); }
+            log.info("Email Sent Successfully........."); }
         catch (Exception e)
         {
             e.printStackTrace();
