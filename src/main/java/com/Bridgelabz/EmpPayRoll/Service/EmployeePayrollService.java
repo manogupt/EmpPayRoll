@@ -95,15 +95,16 @@ public class EmployeePayrollService implements IEmployeePayrollService {
         Optional<Department> isDepartmentPresent=deptRepo.findById(departmentId);		
         if(isDepartmentPresent.isPresent()) {
             employeePayrollModel.setDepartment(isDepartmentPresent.get());
+            repo.save(employeePayrollModel);
 
         }
-        repo.save(employeePayrollModel);
+        return employeePayrollModel;
+//        throw new MethodArgumentNotValidException();
 		
 //		employeePayrollModel.setName(employeeDto.getName());
 //		employeePayrollModel.setSalary(employeeDto.getSalary());
 //		employeePayrollModel.setEmailId(employeeDto.getEmailId());
 //		employeePayrollModel.setPwd(employeeDto.getPwd());		
-		return employeePayrollModel;
 	}
 
 	@Override
