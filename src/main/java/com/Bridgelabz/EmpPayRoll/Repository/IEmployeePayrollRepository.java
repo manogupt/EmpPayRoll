@@ -4,10 +4,13 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.Bridgelabz.EmpPayRoll.Model.Department;
 import com.Bridgelabz.EmpPayRoll.Model.EmployeePayrollModel;
 
 public interface IEmployeePayrollRepository extends JpaRepository<EmployeePayrollModel, Long>{
 
 	Optional<EmployeePayrollModel> findByEmailId(String emailId);
+
+	Optional<Department> findByDepartment(Department department);
 
 }
