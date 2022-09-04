@@ -11,27 +11,36 @@ public interface IEmployeePayrollService {
 	
 	String start();
 
-	EmployeePayrollModel createEmp(EmployeePayrollDto emp, Long department_id);
+	EmployeePayrollModel getEmployeeById(long id);
+
+//	EmployeePayrollModel createEmp(EmployeePayrollModel emp);
+
+//	EmployeePayrollModel update(EmployeePayrollModel emp, long id);
+
+	EmployeePayrollModel delete(long id);
 
 	Response login(String email, String pwd);
 
+	EmployeePayrollModel createEmp(EmployeePayrollDto emp, Long department_id);
+
 	void sendMail(long id);
-
-	List<EmployeePayrollModel> getList();
-
-	EmployeePayrollModel getEmployeeById(long id);
 
 	EmployeePayrollModel getEmpByToken(String token);
 
-	List<EmployeePayrollModel> getByContent(String content);
+	List<EmployeePayrollModel> getList();
 
-	EmployeePayrollModel setDepartment(long empId, long deptId);
+	EmployeePayrollModel updateWithToken(String token);
 
-	EmployeePayrollModel updateWithToken(EmployeePayrollDto employeePayrollDto, String token);
-
-	EmployeePayrollModel setDepartmentToToken(String token, long deptId);
-
-	EmployeePayrollModel delete(long id);
-	
 	EmployeePayrollModel deleteWithToken(String token);
+
+//	EmployeePayrollModel update(EmployeePayrollModel emp, long empId, long deptId);
+
+	EmployeePayrollModel update(EmployeePayrollDto emp, long empId, long deptId);
+
+	EmployeePayrollModel updateDepartmentWithToken(EmployeePayrollDto emp, String token, long deptId);
+
+		List<EmployeePayrollModel> getByContent(String content);
+
+
+
 }
