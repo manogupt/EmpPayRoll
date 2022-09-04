@@ -3,6 +3,7 @@ package com.Bridgelabz.EmpPayRoll.Util;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+
 @Data
 @AllArgsConstructor
 public class Response {
@@ -38,4 +39,16 @@ public class Response {
 	public Response() {
 
     }
+
+	public Response(String string, int i) {
+		// TODO Auto-generated constructor stub
+		this.message=string;
+		this.errorCode=i;
+	}
+
+	public Response(String string, int i, String token2) {
+		this.message=string;
+		this.errorCode=i;
+		this.token=token2;
+	}
 }
